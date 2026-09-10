@@ -375,3 +375,37 @@ function Annulerunticket() {
 
 }
 
+function Rechercherunticket() {
+    
+
+    const nom = prompt("Nom du passager : ");
+
+    let trouve = false;
+
+    for (let i = 0; i < tickets.length; i++) {
+
+        if (tickets[i].passengerName === nom) {
+
+            trouve = true;
+
+            let ticket = tickets[i];
+
+            let trajet = trajets.find(function(trip) {
+                return trip.id === ticket.tripId;
+            });
+
+            console.log(`Ticket #${ticket.id}`);
+            console.log(`Passager : ${ticket.passengerName}`);
+            console.log(`Trajet : ${trajet.departure} → ${trajet.destination}`);
+            console.log(`Place : ${ticket.seatNumber}`);
+            console.log(`Prix : ${ticket.price} DH`);
+            console.log("");
+        }
+    }
+
+    if (trouve === false) {
+        console.log("Aucun ticket trouvé.");
+    }
+}
+
+
