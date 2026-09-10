@@ -198,7 +198,7 @@ do {
     console.log("1. Afficher les trajets\n2. Acheter un ticket")
     console.log("3. Afficher les tickets\n4. Annuler un ticket")
     console.log("5. Rechercher un ticket\n6. Filtrer les trajets")
-    console.log("7. Trier les trajets\n0. Quitter\n")
+    console.log("7. Trier les trajets\n8. Statistiques\n0. Quitter\n")
 
     
 
@@ -234,6 +234,10 @@ do {
         case 7:
             Trierlestrajets();
             break;
+        
+        case 8:
+            Statistiques();
+            break;    
 
         case 0:
             console.log("===============Merci d'avoir utilisé Railway Manager.=============");
@@ -287,7 +291,14 @@ function Acheterunticket() {
 
     } else {
 
-        let numero = 50 - trajetTrouve.availableSeats + 1;
+        let numero = 1;
+
+    for (let i = 0; i < tickets.length; i++) {
+        if (tickets[i].tripId === trajetTrouve.id && tickets[i].seatNumber === numero) {
+            numero++;
+            i = -1;
+        }          
+    }
 
         const ticket = {
             id: ticketId++,
