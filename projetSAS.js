@@ -182,15 +182,16 @@ const trajets = [
     }
 ];
 
-const tickets = [];
-let ticketId = 1;
+const tickets = [ 
+    
+];
+
+let ticketId = 11;
 /// --------------------------------------------------------------
 
 
 function afficherMenu() {
     let choix;
-
-
 do {
     console.log("=================================")
     console.log("        RAILWAY MANAGER")
@@ -201,8 +202,6 @@ do {
     console.log("7. Trier les trajets\n8. Statistiques\n0. Quitter\n")
 
     
-
-
     choix = Number(prompt("Votre choix : "));
 
     switch (choix) {
@@ -272,9 +271,9 @@ function Acheterunticket() {
     const Identifiantdutrajet = Number(prompt("Identifiant du trajet : "));
 
     let trajetTrouve = null;
-
+//can9lbo 3la traji
     for (let i = 0; i < trajets.length; i++) {
-
+//wach id.trajet howa lidkhl utilisateur
         if (trajets[i].id === Identifiantdutrajet) {
             trajetTrouve = trajets[i];
             break;
@@ -284,13 +283,13 @@ function Acheterunticket() {
     if (trajetTrouve === null) {
 
         console.log("Trajet introuvable.");
-
+//wach lblays 3mro
     } else if (trajetTrouve.availableSeats === 0) {
 
         console.log("Train complet.");
 
     } else {
-
+// glitch de place
         let numero = 1;
 
     for (let i = 0; i < tickets.length; i++) {
@@ -299,7 +298,7 @@ function Acheterunticket() {
             i = -1;
         }          
     }
-
+        
         const ticket = {
             id: ticketId++,
             passengerName: nomDePassage,
@@ -455,3 +454,55 @@ function Trierlestrajets() {
 
 }
 
+
+function Statistiques() {S
+
+    // 1. Nombre total de tickets
+    console.log("=== STATISTIQUES ===");
+    console.log("Nombre total de tickets : " + tickets.length);
+
+
+    // 2. Chiffre d'affaires total
+    let chiffreAffaires = 0;
+
+    for (let i = 0; i < tickets.length; i++) {
+        chiffreAffaires += tickets[i].price;
+    }
+
+    console.log("Chiffre d'affaires : " + chiffreAffaires + " DH");
+
+
+    // 3. Trajet le plus vendu
+    let maxVentes = 0;
+    let trajetPlusVendu = null;
+
+    for (let i = 0; i < trajets.length; i++) {
+
+        let nombreVentes = 0;
+
+        for (let j = 0; j < tickets.length; j++) {
+
+            if (tickets[j].tripId === trajets[i].id) {
+                nombreVentes++;
+            }
+        }
+
+        if (nombreVentes > maxVentes) {
+            maxVentes = nombreVentes;
+            trajetPlusVendu = trajets[i];
+        }
+    }
+
+    if (trajetPlusVendu !== null) {
+        console.log(
+            "Trajet le plus vendu : " +
+            trajetPlusVendu.departure +
+            " → " +
+            trajetPlusVendu.destination
+        );
+
+        console.log("Nombre de ventes : " + maxVentes);
+    } else {
+        console.log("Aucune vente enregistrée.");
+    }
+}
