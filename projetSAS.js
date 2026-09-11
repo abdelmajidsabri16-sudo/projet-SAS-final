@@ -420,3 +420,38 @@ function Rechercherunticket() {
 }
 
 
+function Filtrerlestrajets() {
+    const ville = prompt("Ville de départ : ");
+
+    let trouve = false;
+
+    for (let i = 0; i < trajets.length; i++) {
+
+        if (trajets[i].departure === ville) {
+            trouve = true;
+
+            console.log(
+                "# " + trajets[i].id + " " + trajets[i].departure + " → " + trajets[i].destination
+            );
+            console.log("Départ : " + trajets[i].departureTime);
+            console.log("Arrivée : " + trajets[i].arrivalTime);
+            console.log("Prix : " + trajets[i].price + " DH");
+            console.log("");
+        }
+    }
+
+    if (trouve === false) {
+        console.log("Aucun trajet trouvé.");
+    }
+}
+
+
+function Trierlestrajets() {
+    trajets.sort(function(a, b) {
+        return a.price - b.price;
+    });
+
+    Afficherlestrajets();
+
+}
+
