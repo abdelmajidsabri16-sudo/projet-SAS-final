@@ -186,7 +186,7 @@ const tickets = [
     
 ];
 
-let ticketId = 11;
+let ticketId = 1;
 /// --------------------------------------------------------------
 
 
@@ -199,7 +199,7 @@ do {
     console.log("1. Afficher les trajets\n2. Acheter un ticket")
     console.log("3. Afficher les tickets\n4. Annuler un ticket")
     console.log("5. Rechercher un ticket\n6. Filtrer les trajets")
-    console.log("7. Trier les trajets\n8. Statistiques\n0. Quitter\n")
+    console.log("7. Trier les trajets\n0. Quitter\n")
 
     
     choix = Number(prompt("Votre choix : "));
@@ -293,12 +293,13 @@ function Acheterunticket() {
         let numero = 1;
 
     for (let i = 0; i < tickets.length; i++) {
+        //kanchofo wach lblasa mst3mla
         if (tickets[i].tripId === trajetTrouve.id && tickets[i].seatNumber === numero) {
             numero++;
             i = -1;
         }          
     }
-        
+        //cansaybo objet jdid
         const ticket = {
             id: ticketId++,
             passengerName: nomDePassage,
@@ -308,7 +309,7 @@ function Acheterunticket() {
         };
 
         tickets.push(ticket);
-
+//n9ss place 1 mn had traji bdabt
         trajetTrouve.availableSeats -= 1;
 
         console.log("Ticket acheté avec succès.\n");
@@ -335,7 +336,9 @@ function Afficherlestickets () {
 
     for(let i = 0; i < tickets.length; i++) {
         let ticket = tickets[i];
+        //n9lbo 3la trajet dyal had les tikets
         let trajet = trajets.find(function(trip) {
+            //wach had l3onsor howa likan9lb 3lihuio
                 return trip.id === ticket.tripId;
             });
 
@@ -353,9 +356,10 @@ function Afficherlestickets () {
 
 function Annulerunticket() {
     const idTicket = Number(prompt("Identifiant du ticket : "));
+    //mazal mal9ina tiket
     let indexTicket = -1;
 
-  
+  // drnaha bach nchofo wach kayn tiket
     for (let i = 0; i < tickets.length; i++) {
 
         if (tickets[i].id === idTicket) {
@@ -369,7 +373,7 @@ function Annulerunticket() {
         console.log("Ticket introuvable.");
 
     } else {
-
+//nakhdo tiket
         let ticket = tickets[indexTicket];
 
         let trajet = trajets.find(function(trip) {
@@ -377,7 +381,7 @@ function Annulerunticket() {
         });
 
         tickets.splice(indexTicket, 1);
-
+        //kanrj3o blassa l trajet
         trajet.availableSeats += 1;
 
         console.log("Ticket annulé avec succès.");
@@ -399,7 +403,7 @@ function Rechercherunticket() {
             trouve = true;
 
             let ticket = tickets[i];
-
+            //kan9lbo 3la traji
             let trajet = trajets.find(function(trip) {
                 return trip.id === ticket.tripId;
             });
@@ -455,54 +459,3 @@ function Trierlestrajets() {
 }
 
 
-function Statistiques() {S
-
-    // 1. Nombre total de tickets
-    console.log("=== STATISTIQUES ===");
-    console.log("Nombre total de tickets : " + tickets.length);
-
-
-    // 2. Chiffre d'affaires total
-    let chiffreAffaires = 0;
-
-    for (let i = 0; i < tickets.length; i++) {
-        chiffreAffaires += tickets[i].price;
-    }
-
-    console.log("Chiffre d'affaires : " + chiffreAffaires + " DH");
-
-
-    // 3. Trajet le plus vendu
-    let maxVentes = 0;
-    let trajetPlusVendu = null;
-
-    for (let i = 0; i < trajets.length; i++) {
-
-        let nombreVentes = 0;
-
-        for (let j = 0; j < tickets.length; j++) {
-
-            if (tickets[j].tripId === trajets[i].id) {
-                nombreVentes++;
-            }
-        }
-
-        if (nombreVentes > maxVentes) {
-            maxVentes = nombreVentes;
-            trajetPlusVendu = trajets[i];
-        }
-    }
-
-    if (trajetPlusVendu !== null) {
-        console.log(
-            "Trajet le plus vendu : " +
-            trajetPlusVendu.departure +
-            " → " +
-            trajetPlusVendu.destination
-        );
-
-        console.log("Nombre de ventes : " + maxVentes);
-    } else {
-        console.log("Aucune vente enregistrée.");
-    }
-}
